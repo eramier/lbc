@@ -23,5 +23,4 @@ class UserMixin:
                 pro_data = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/onlinestores/v2/users/{user_id}?fields=all", timeout=self.timeout, max_retries=self.max_retries)
             except NotFoundError:
                 pass # Some professional users may not have a Leboncoin page.
-
         return User._build(user_data=user_data, pro_data=pro_data)
