@@ -69,7 +69,6 @@ class SessionMixin:
                 'Sec-Fetch-Site': 'same-site',
             }
         )
-        print(session.headers["User-Agent"], impersonate)
         if proxy:
             session.proxies = {
                 "http": proxy.url,

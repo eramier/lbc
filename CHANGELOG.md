@@ -1,3 +1,10 @@
+## 1.1.0
+### Changed
+* Project structure reorganized: features such as **search**, **user**, and **ad** are now separated using mixins.
+
+### Added
+* Realistic dynamic mobile User-Agent generation.
+
 ## 1.0.10
 ### Fix
 * KeyError when using shippable=True (#5)
