@@ -1,7 +1,7 @@
-from .user import User
-
 from dataclasses import dataclass
 from typing import List, Any, Optional
+
+from .user import User
 
 @dataclass
 class Location:

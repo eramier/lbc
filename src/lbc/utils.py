@@ -1,7 +1,7 @@
+from typing import Optional, Union, List
+
 from .model import Category, AdType, OwnerType, Sort, Region, Department, City
 from .exceptions import InvalidValue
-
-from typing import Optional, Union, List
 
 def build_search_payload_with_url(
     url: str,

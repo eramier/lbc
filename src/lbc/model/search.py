@@ -1,7 +1,7 @@
-from .ad import Ad
-
 from dataclasses import dataclass
 from typing import List, Any
+
+from .ad import Ad
 
 @dataclass
 class Search:
