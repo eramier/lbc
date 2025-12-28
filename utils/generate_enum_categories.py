@@ -11,7 +11,7 @@ def print_category(category_data: dict, category_name: Optional[str] = None) -> 
     print(f'{f"{category_name}_" if category_name else ""}{label} = "{category_data['catId']}"')
 
 def main() -> None:
-    client = lbc.Client()
+    client = lbc.Client(impersonate="chrome_android")
     body = client._fetch(method="GET", url="https://api.leboncoin.fr/api/frontend/v1/data/v7/fdata")
     
     for category in body["categories"]:

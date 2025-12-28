@@ -9,7 +9,7 @@ def print_region(region_data: dict) -> None:
     print(f'{name} = ("{region_data['rId']}", "{name}")')
 
 def main() -> None:
-    client = lbc.Client()
+    client = lbc.Client(impersonate="chrome_android")
     body = client._fetch(method="GET", url="https://api.leboncoin.fr/api/frontend/v1/data/v7/fdata")
     
     for region in body["regions"]:
