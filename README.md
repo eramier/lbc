@@ -41,7 +41,6 @@ pip install lbc
 ```
 
 ## Usage
-**Full documentation will be available soon.**
 
 Start with the [examples](examples/) to quickly understand how to use the library in real-world scenarios.
 
@@ -56,13 +55,29 @@ client = lbc.Client()
 #### Proxy
 You can also configure the client to use a proxy by providing a `Proxy` object:
 ```python
-proxy = lbc.Proxy(
-    host=...,
-    port=...,
-    username=...,
-    password=...
+# Setup proxy1
+proxy1 = lbc.Proxy(
+	host="127.0.0.1",
+	port=12345,
+	username="username",
+	password="password",
+	scheme="http"
 )
-client = lbc.Client(proxy=proxy)
+
+# Initialize client with proxy1
+client = lbc.Client(proxy=proxy1)
+
+# Setup proxy2
+proxy2 = lbc.Proxy(
+	host="127.0.0.1",
+	port=23456,
+)
+
+# Change client proxy to proxy2
+client.proxy = proxy2
+
+# Remove proxy
+client.proxy = None
 ```
 
 

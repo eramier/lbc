@@ -17,5 +17,5 @@ class AdMixin:
         Returns:
             Ad: An `Ad` object containing the parsed ad information.
         """
-        body = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/adfinder/v1/classified/{ad_id}", timeout=self.timeout, max_retries=self.max_retries)
+        body = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/adfinder/v1/classified/{ad_id}")
         return Ad._build(raw=body, client=self)

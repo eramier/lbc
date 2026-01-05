@@ -15,12 +15,12 @@ class UserMixin:
         Returns:
             User: A `User` object containing the parsed user information.
         """
-        user_data = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/user-card/v2/{user_id}/infos", timeout=self.timeout, max_retries=self.max_retries)
+        user_data = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/user-card/v2/{user_id}/infos")
 
         pro_data = None
         if user_data.get("account_type") == "pro":
             try:
-                pro_data = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/onlinestores/v2/users/{user_id}?fields=all", timeout=self.timeout, max_retries=self.max_retries)
+                pro_data = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/onlinestores/v2/users/{user_id}?fields=all")
             except NotFoundError:
                 pass # Some professional users may not have a Leboncoin page.
         return User._build(user_data=user_data, pro_data=pro_data)

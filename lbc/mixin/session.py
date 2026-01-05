@@ -6,8 +6,9 @@ import uuid
 from ..model import Proxy
 
 class SessionMixin:
-    def __init__(self, proxy: Optional[Proxy] = None, impersonate: BrowserTypeLiteral = None, request_verify: bool = True, **kwargs):
-        self._session = self._init_session(proxy=proxy, impersonate=impersonate, request_verify=request_verify)
+    def __init__(self, proxy: Optional[Proxy] = None, impersonate: BrowserTypeLiteral = None, 
+            request_verify: bool = True, **kwargs):
+        self.session = self._init_session(proxy=proxy, impersonate=impersonate, request_verify=request_verify)
         self._proxy = proxy
         self._impersonate = impersonate
         super().__init__(**kwargs)
@@ -58,7 +59,7 @@ class SessionMixin:
             )
 
         session = requests.Session(
-            impersonate=impersonate,
+            impersonate=impersonate
         )
 
         session.headers.update(
@@ -77,17 +78,6 @@ class SessionMixin:
 
         session.get("https://www.leboncoin.fr/", verify=request_verify) # Init cookies
         return session
-
-    @property
-    def session(self) -> requests.Session:
-        return self._session
-    
-    @session.setter
-    def session(self, value: requests.Session):
-        if isinstance(value, requests.Session):
-            self._session = value
-        else:
-            raise TypeError("Session must be an instance of the curl_cffi.requests.Session")
     
     @property
     def proxy(self) -> Proxy:
@@ -95,10 +85,14 @@ class SessionMixin:
     
     @proxy.setter
     def proxy(self, value: Proxy):
-        if isinstance(value, Proxy):
-            self._session.proxies = {
-                "http": value.url,
-                "https": value.url
-            }
+        if value:
+            if isinstance(value, Proxy):
+                self.session.proxies = {
+                    "http": value.url,
+                    "https": value.url
+                }
+            else:
+                raise TypeError("Proxy must be an instance of the lbc.Proxy")
         else:
-            raise TypeError("Proxy must be an instance of the Proxy class")
+            self.session.proxies = {}
+        self._proxy = value

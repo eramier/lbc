@@ -7,7 +7,7 @@ class Proxy:
     port: Union[str, int]
     username: Optional[str] = None
     password: Optional[str] = None
-    scheme: Optional[str] = "http"
+    scheme: str = "http"
 
     @property
     def url(self):

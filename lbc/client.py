@@ -36,7 +36,7 @@ class Client(
         self.timeout = timeout
         self.max_retries = max_retries
 
-    def _fetch(self, method: str, url: str, payload: Optional[dict] = None, timeout: int = 30, max_retries: int = 5) -> Union[dict, None]:
+    def _fetch(self, method: str, url: str, payload: Optional[dict] = None, max_retries: int = -1) -> dict:
         """
         Internal method to send an HTTP request using the configured session.
 
@@ -54,19 +54,22 @@ class Client(
         Returns:
             dict: Parsed JSON response from the server.
         """
+        if max_retries == -1:
+            max_retries = self.max_retries
+
         response = self.session.request(
             method=method,
             url=url, 
             json=payload,
-            timeout=timeout,
             verify=self.request_verify,
+            timeout=self.timeout
         )
         if response.ok:
             return response.json()
         elif response.status_code == 403:
             if max_retries > 0:
                 self.session = self._init_session(proxy=self._proxy, impersonate=self._impersonate, request_verify=self.request_verify) # Re-init session
-                return self._fetch(method=method, url=url, payload=payload, timeout=timeout, max_retries=max_retries - 1)
+                return self._fetch(method=method, url=url, payload=payload, max_retries=max_retries - 1)
             if self.proxy:
                 raise DatadomeError(f"Access blocked by Datadome: your proxy appears to have a poor reputation, try to change it.")
             else:

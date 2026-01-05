@@ -56,5 +56,5 @@ class SearchMixin:
                 owner_type=owner_type, shippable=shippable, search_in_title_only=search_in_title_only, **kwargs
             )
 
-        body = self._fetch(method="POST", url="https://api.leboncoin.fr/finder/search", payload=payload, timeout=self.timeout, max_retries=self.max_retries)
+        body = self._fetch(method="POST", url="https://api.leboncoin.fr/finder/search", payload=payload)
         return Search._build(raw=body, client=self)
